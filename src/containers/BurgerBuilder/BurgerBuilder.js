@@ -3,6 +3,8 @@ import Aux from '../../hoc/Aux'
 import Burger from '../../components/Burger/Burger'
 
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
+import Modal from "../../components/UI/Modal/Modal";
+import Ordersummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGRADIENT_PRICES = {
     salad: 0.5,
@@ -21,6 +23,7 @@ const INGRADIENT_PRICES = {
          },
          totalPrice: 4,
          purchasable: false,
+         purchasing: false
      }
 
      updatePurchaseState = (ingredients) => {
@@ -54,6 +57,18 @@ const INGRADIENT_PRICES = {
         this.updatePurchaseState(updatedIngradients);
      }
 
+     purchaseeeHandler = () => {
+         this.setState({purchasing: true})
+     }
+
+     closePurchaseeeHandler = () => {
+         this.setState({purchasing: false})
+     }
+
+     continuePurchaseeeHandler = () => {
+         alert('You Continue');
+     }
+
      render () {
          const disabledInfo = { ...this.state.ingredients};
          for(let key in disabledInfo) {
@@ -61,12 +76,20 @@ const INGRADIENT_PRICES = {
          }
          return(
             <Aux>
+                <Modal show={this.state.purchasing} modalClosed={this.closePurchaseeeHandler}>
+                    <Ordersummary 
+                    ingredients={this.state.ingredients} 
+                    closePurchaseeeHandler={this.closePurchaseeeHandler}
+                    continuePurchaseeeHandler={this.continuePurchaseeeHandler}
+                    />
+                </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls 
                     ingradientAdded={this.addIngradientHandler} 
                     ingradientRemoved={this.removeIngradientHandler}
                     disabled={disabledInfo}
                     price={this.state.totalPrice}
+                    ordered={this.purchaseeeHandler}
                     purchasable={this.state.purchasable}
                 />
             </Aux>
