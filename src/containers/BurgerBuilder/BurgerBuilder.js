@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Aux from '../../hoc/Aux'
+import Aux from '../../hoc/Aux/Aux'
 import Burger from '../../components/Burger/Burger'
 
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
@@ -81,6 +81,7 @@ const INGRADIENT_PRICES = {
                     ingredients={this.state.ingredients} 
                     closePurchaseeeHandler={this.closePurchaseeeHandler}
                     continuePurchaseeeHandler={this.continuePurchaseeeHandler}
+                    price={this.state.totalPrice}
                     />
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
